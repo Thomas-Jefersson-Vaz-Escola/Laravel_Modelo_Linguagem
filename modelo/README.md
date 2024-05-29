@@ -1,66 +1,248 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# LP
+    #Instalação Laravel
+docker context use default
+curl -s "https://laravel.build/example-app?with=mysql,redis" | bash
+   
+    #iniciando
+    cd {pasta}
+ 
+     [*.]github.dev   - iniciar o container
+     ./vendor/bin/sail php artisan migrate  -iniciar o BD
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+    
+     instalar o plugin Docker
 
-## About Laravel
+     instalar o pacote breeze
+     
+     composer require laravel/breeze --dev
+     php artisan breeze:install
+ 
+        php artisan migrate
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Configurar Vendor para rota localhost
+vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+   protected $proxies='*';
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+    #Views (layouts de páginas)
+       nome.blade.php
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    #Routes - rotas - fluxos da aplicação
+     com/sem parâmetros ( enviar/ receber dados )
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    #Migrations - Banco de dados
+    cria e gerencia o banco de dados da aplicação
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+php artisan make:model -mrc produto
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Este comando criará três arquivos para você:
 
-## Contributing
+app/Models/produto.php- O modelo Eloquente.
+database/migrations/<timestamp>_create_produto_table.php- A migração do banco de dados que criará sua tabela de banco de dados.
+app/Http/Controller/ProdutoController.php- O controlador HTTP que receberá solicitações recebidas e retornará respostas.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# MIGRATIONS
 
-## Security Vulnerabilities
+=======
+# Criar
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+php artisan make:migration create_users_table
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+php artisan make:migration create_users_table --create=users
+
+# Executar
+
+php artisan migrate
+
+# Ver o status
+
+php artisan migrate:status
+
+
+
+# Reverter
+php artisan migrate:rollback
+php artisan migrate:rollback --step=5 reverterá as últimas cinco migrações
+php artisan migrate:rollback --batch=3 everterá todas as migrações do lote três
+php artisan migrate:reset   reverterá todas as migrações do seu aplicativo
+
+
+Reverter e migrar em um único comando
+
+php artisan migrate:refresh
+php artisan migrate:refresh --seed
+
+php artisan migrate:fresh
+php artisan migrate:fresh --seed
+
+# Criando Tabelas
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+ 
+Schema::create('users', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->string('email');
+    $table->timestamps();
+});
+
+# Criando Colunas
+Schema::table('users', function (Blueprint $table) {
+    $table->string('email');
+});
+
+
+# Atualizando Tabelas
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+ 
+Schema::table('users', function (Blueprint $table) {
+    $table->integer('votes');
+});
+
+# Renomeando tabelas
+Schema::rename($from, $to);
+
+php artisan make:migration add_paid_to_users_table --table=users
+
+
+# SEEDS popular tabelas de BD
+  
+Criando uma Seed
+
+php artisan make:seeder nomeTableSeeder
+   php artisan: Execução do helper artisan com o PHP
+   make:seeder: Use o artisan para criar uma seeder
+   nomeTableSeeder: Nome da seeder (<tabela>TableSeeder)
+
+   A seeds criadas vão para o diretório database/seeds/
+
+   Dentro do arquivo, você encontrará uma classe com o nome da seeder criada, essa classe extende a classe Seeder, dentro da classe criada terá um método chamado run, esse é o método que será executado quando rodarmos a seed.
+
+   Para inserir os dados na tabela, nós usaremos uma Facade:
+   Facades são recursos que o Laravel fornece e que nos ajudam a ganhar tempo quando queremos realizar alguma operação na aplicação, nesse caso usaremos uma facade que nos permita inserir registros no Banco de Dados
+   <?php
+        use Illuminate\Support\Facades\DB;
+
+        public function run()
+     {
+          DB::table('nome')->insert(['coluna'=>conteudo
+                                                       ])
+
+     }
+
+
+           php artisan db:seed
+
+
+dentro de DatabaseSeeder, vamos especificar a classe da nossa seed:
+
+public function run()
+{
+    // Chamando o método call, e especificando a classe
+    $this->call(NomeTableSeeder::class)
+}
+Sem configurar o DataBaseSeeder
+
+      php artisan db:seed --class=NomesTableSeeder     
+
+
+
+Podemos também, quando formos criar a base de dados, ao rodar uma migration podemos também executar uma seed para a tabela criada:
+
+ Rodar migrations e inserir dados
+php artisan migrate --seed
+ Dar um refresh no DB e inserir os dados
+php artisan migrate:refresh --seed
+ Dropar todas as tabelas e criar novamente com os registros
+php artisan migrate:fresh --seed
+
+# MODELS- ELOQUENT 
+
+# Criando a tabela Categoria
+
+php artisan make:model -mrc Categoria
+
+Na migration:
+public function up()
+    {
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nome');
+            $table->string('descricao');
+            $table->timestamps();
+        });
+    }
+
+    php artisan migrate
+    php artisan make:seed CategoriaSeed
+     No CategoriaSeed:
+
+public function run()
+    {
+  Categoria::insert(['nome' => 'categ1', 'descricao' => 'teste']);
+  Categoria::insert(['nome' => 'categ2', 'descricao' => 'teste']);
+  Categoria::insert(['nome' => 'categ3', 'descricao' => 'teste']);
+    }
+}
+
+
+php artisan db:seed --class="CategoriaSeed"
+
+Caso ocorra o erro dizendo que a classe não exista:
+composer dump-autoload e execute o seed novamente
+
+# Alterando a tabela de produtos
+
+Aqui vamos adicionar id_categoria a tabela produtos, então volte ao terminal e execute o seguinte comando:
+php artisan make:migration --table="produtos" alter_produtos_table
+
+ public function up()
+    {
+        Schema::table('produtos', function (Blueprint $table) {
+            $table->integer('categoria_id')->unsigned()->nullable();
+            $table->foreign('categoria_id')->references('id')->on('categorias');
+        });
+    }
+
+   
+    public function down()
+    {
+        Schema::table('produtos', function (Blueprint $table) {
+            $table->dropForeign('produtos_categoria_id_foreign');
+        $table->dropColumn('categoria_id');
+        });
+    }
+
+    php artisan migrate
+
+    # Adicionando relação entre o model Produto e Categoria
+
+    Em nosso exemplo a relação de cardinalidades entre as tabelas produto e categoria é de 1:N, ou seja, o produto pode ter uma categoria, e a categoria pode ter vários produtos.
+
+
+   no model produto: 
+
+   class Contato extends Model
+{
+ public function categoria(){
+  return $this->belongsTo(Categoria::class);
+ } 
+}
+
+# Recuperar Dados
+
+$categoria = $produto->categoria;
+
+use App\Models\Flight;
+ 
+foreach (Flight::all() as $flight) {
+    echo $flight->name;
+}
