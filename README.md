@@ -7,7 +7,7 @@ curl -s "https://laravel.build/example-app?with=mysql,redis" | bash
     cd {pasta}
  
      ./vendor/bin/sail up    - iniciar o container
-     ./vendor/bin/sail artisan migrate  -iniciar o BD
+     ./vendor/bin/sail php artisan migrate  -iniciar o BD
 
     
      instalar o plugin Docker
@@ -45,28 +45,29 @@ app/Models/produto.php- O modelo Eloquente.
 database/migrations/<timestamp>_create_produto_table.php- A migração do banco de dados que criará sua tabela de banco de dados.
 app/Http/Controller/ProdutoController.php- O controlador HTTP que receberá solicitações recebidas e retornará respostas.
 
-Migrations
 
 
-Criar
+# Migrations
 
+=======
+# Criar
 
 
 php artisan make:migration create_users_table
 
 php artisan make:migration create_users_table --create=users
 
-executar
+# Executar
 
 php artisan migrate
 
-Ver o status
+# Ver o status
 
 php artisan migrate:status
 
 
 
-Reverter
+# Reverter
 php artisan migrate:rollback
 php artisan migrate:rollback --step=5 reverterá as últimas cinco migrações
 php artisan migrate:rollback --batch=3 everterá todas as migrações do lote três
@@ -74,14 +75,14 @@ php artisan migrate:reset   reverterá todas as migrações do seu aplicativo
 
 
 Reverter e migrar em um único comando
+
 php artisan migrate:refresh
 php artisan migrate:refresh --seed
 
 php artisan migrate:fresh
 php artisan migrate:fresh --seed
 
-
-Criando Tabelas
+# Criando Tabelas
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
  
@@ -92,13 +93,13 @@ Schema::create('users', function (Blueprint $table) {
     $table->timestamps();
 });
 
-Criando Colunas
+# Criando Colunas
 Schema::table('users', function (Blueprint $table) {
     $table->string('email');
 });
 
 
-Atualizando Tabelas
+# Atualizando Tabelas
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
  
@@ -106,6 +107,8 @@ Schema::table('users', function (Blueprint $table) {
     $table->integer('votes');
 });
 
-Renomeando tabelas
+# Renomeando tabelas
 Schema::rename($from, $to);
+
+php artisan make:migration add_paid_to_users_table --table=users
 
