@@ -3,11 +3,8 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-
+Route::post('/cadastrarProduto', [ProdutoController::class,'store'])->name('produto.store');
 
 
 Route::get('/dashboard', function () {
