@@ -2,10 +2,14 @@
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+Route::get('/', function(){
+    return view('welcome');
+});
 
-
+Route::get('/cadastrarProduto', [ProdutoController::class,'index'])->name('produto.store');
 Route::post('/cadastrarProduto', [ProdutoController::class,'store'])->name('produto.store');
 
+Route::get('/mostrarProduto', [ProdutoController::class,'show'])->name('mostrarProduto');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

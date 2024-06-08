@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id_produto');
             $table->string('nome_produto');
             $table->double('valor_produto');
-            $table->string('vencimento_produto');
+            $table->date('vencimento_produto');
         });
     }
 

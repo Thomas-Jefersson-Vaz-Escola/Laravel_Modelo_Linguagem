@@ -12,8 +12,11 @@
         <label>Valor: </label>
         <input type="text" name="valor" id="valor" placeholder="Usar '.' para separar real do centavo" required><br><br>
 
-        <label>descrição: </label>
-        <input type="text" name="vencimento" id="vencimento" required><br><br>
+        <label>Validade: </label>
+        <input type="date" name="vencimento" id="vencimento" required><br><br>
+
+        <button type="submit">Cadastar</button>
+
     </form>
 </body>
 </html>

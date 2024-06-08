@@ -11,9 +11,9 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():Response
+    public function index()
     {   
-        return response("Hello, World");
+        return view('produto');
     }
 
     /**
@@ -29,8 +29,9 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         Produto::create($request->all());
-        return redirect()->route('produto.show')->with('success','Produto cadastrado com sucesso');
+        return redirect()->route('mostrarProduto')->with('success','Produto cadastrado com sucesso');
     }
 
     /**
@@ -38,7 +39,7 @@ class ProdutoController extends Controller
      */
     public function show(produto $produto)
     {
-        //
+        return view('mostrarProduto');
     }
 
     /**
