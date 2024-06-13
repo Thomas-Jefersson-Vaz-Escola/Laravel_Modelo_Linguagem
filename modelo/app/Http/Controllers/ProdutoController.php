@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use app\Models\produto;
+use App\Models\produto;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -29,7 +29,7 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        dd($request,$request->nome);
         Produto::create($request->all());
         return redirect()->route('mostrarProduto')->with('success','Produto cadastrado com sucesso');
     }
