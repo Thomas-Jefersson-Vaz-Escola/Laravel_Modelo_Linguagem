@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome_produto');
             $table->double('valor_produto');
             $table->date('vencimento_produto');
+            $table->timestamps();
         });
     }
 

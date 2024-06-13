@@ -4,7 +4,7 @@
     <title>Mostrar Produto</title>
 </head>
 <body>
-    @if
+    @if(session('success'))
     <span style="color: #082">
         {{ session('success') }}
     </span>
